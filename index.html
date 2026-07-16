@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#244638">
+  <meta name="description" content="Персональный трекер обучения iOS-разработке">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Progress Grove">
+  <link rel="icon" type="image/svg+xml" href="assets/progress-grove-logo.svg">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <title>Progress Grove</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="brand-header">
+      <div class="brand-lockup">
+        <div class="brand-mark"><img src="assets/progress-grove-logo.svg" alt="Логотип Progress Grove"></div>
+        <div>
+          <p class="brand-title">Progress Grove</p>
+          <p class="brand-subtitle">grow a little every day</p>
+        </div>
+      </div>
+      <button class="icon-button settings-trigger" id="settingsButton" aria-label="Открыть настройки">•••</button>
+    </header>
+
+    <nav class="tabs" aria-label="Разделы">
+      <button class="tab is-active" data-view="dashboard">Главная</button>
+      <button class="tab" data-view="learning">Обучение</button>
+      <button class="tab" data-view="journal">Дневник</button>
+      <button class="tab" data-view="project">Пет-проект</button>
+      <button class="tab" data-view="stats">Статистика</button>
+    </nav>
+
+    <main>
+      <section class="view is-active" id="dashboardView">
+        <div class="hero-grid">
+          <article class="card progress-card">
+            <div class="card-topline">
+              <div>
+                <span class="kicker">Обучение</span>
+                <h2>iOS-разработка</h2>
+              </div>
+              <strong class="big-percent" id="learningPercent">0%</strong>
+            </div>
+            <div class="progress-track"><div class="progress-fill" id="learningProgressBar"></div></div>
+            <p class="muted" id="learningProgressText"></p>
+          </article>
+
+          <article class="card progress-card">
+            <div class="card-topline">
+              <div>
+                <span class="kicker">Разработка</span>
+                <h2>Пет-проект</h2>
+              </div>
+              <strong class="big-percent" id="projectPercent">0%</strong>
+            </div>
+            <div class="progress-track"><div class="progress-fill warm" id="projectProgressBar"></div></div>
+            <p class="muted" id="projectProgressText"></p>
+          </article>
+        </div>
+
+        <div class="dashboard-grid">
+          <article class="card metric-card">
+            <span class="kicker">Серия</span>
+            <div class="metric-value"><span aria-hidden="true">🔥</span><strong id="streakValue">0</strong></div>
+            <p class="muted" id="streakText">Начни сегодня</p>
+          </article>
+
+          <article class="card">
+            <span class="kicker">Следующая тема</span>
+            <h2 id="nextTopicTitle">—</h2>
+            <p class="muted" id="nextTopicSection"></p>
+            <button class="text-button" data-go-to="learning">Перейти к обучению →</button>
+          </article>
+
+          <article class="card review-card">
+            <div class="card-topline">
+              <div>
+                <span class="kicker">Нужно повторить</span>
+                <h2><span class="danger-mark">!</span> Темы для повторения</h2>
+              </div>
+              <strong id="reviewCount">0</strong>
+            </div>
+            <div id="reviewPreview" class="review-preview"></div>
+          </article>
+
+          <article class="card">
+            <span class="kicker">Последняя запись</span>
+            <h2 id="lastJournalDate">Записей пока нет</h2>
+            <p class="journal-preview muted" id="lastJournalText">Здесь появится твой последний отчёт.</p>
+            <button class="text-button" data-go-to="journal">Открыть дневник →</button>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="learningView">
+        <div class="section-header">
+          <div>
+            <span class="kicker">Учебный план</span>
+            <h1 class="page-title">Обучение</h1>
+          </div>
+          <div class="header-actions">
+            <button class="secondary-button" id="addSectionButton">+ Раздел</button>
+            <button class="primary-button" id="addTopicButton">+ Тема</button>
+          </div>
+        </div>
+
+        <article class="card compact-summary">
+          <span id="learningStats">0 из 0 тем завершено</span>
+          <span id="theoryStats">Теория: 0</span>
+          <span id="practiceStats">Практика: 0</span>
+          <span id="reviewStats">Повторить: 0</span>
+        </article>
+
+        <div id="learningSections" class="sections-list"></div>
+      </section>
+
+      <section class="view" id="journalView">
+        <div class="section-header">
+          <div>
+            <span class="kicker">Небольшие отчёты</span>
+            <h1 class="page-title">Дневник успехов</h1>
+          </div>
+        </div>
+
+        <article class="card journal-form-card paper-card">
+          <label for="journalText">Что изучила, что нужно доучить и в чём ты молодец?</label>
+          <textarea id="journalText" rows="6" placeholder="Например: разобралась с опционалами, но нужно ещё потренировать if let..."></textarea>
+          <div class="form-footer">
+            <span class="muted">Запись попадёт в статистику активности</span>
+            <button class="primary-button" id="saveJournalButton">Сохранить запись</button>
+          </div>
+        </article>
+
+        <div id="journalList" class="journal-list"></div>
+      </section>
+
+      <section class="view" id="projectView">
+        <div class="section-header">
+          <div>
+            <span class="kicker">Учебное приложение</span>
+            <h1 class="page-title">Пет-проект</h1>
+          </div>
+          <button class="primary-button" id="addProjectTaskButton">+ Задача</button>
+        </div>
+
+        <article class="card project-overview">
+          <div class="card-topline">
+            <div>
+              <span class="kicker">Общий прогресс</span>
+              <h2 id="projectStats">0 из 0 задач завершено</h2>
+            </div>
+            <strong class="big-percent" id="projectPagePercent">0%</strong>
+          </div>
+          <div class="progress-track"><div class="progress-fill warm" id="projectPageBar"></div></div>
+        </article>
+
+        <article class="card">
+          <div id="projectList" class="task-list"></div>
+        </article>
+      </section>
+
+      <section class="view" id="statsView">
+        <div class="section-header">
+          <div>
+            <span class="kicker">Общая картина</span>
+            <h1 class="page-title">Статистика</h1>
+          </div>
+        </div>
+
+        <div class="stats-grid" id="statsCards"></div>
+
+        <div class="stats-layout">
+          <article class="card">
+            <div class="card-topline">
+              <div>
+                <span class="kicker">Последние 12 недель</span>
+                <h2>Календарь активности</h2>
+              </div>
+              <div class="heat-legend"><span>меньше</span><i></i><i></i><i></i><i></i><span>больше</span></div>
+            </div>
+            <div id="heatmap" class="heatmap" aria-label="Календарь активности"></div>
+          </article>
+
+          <article class="card">
+            <span class="kicker">Последние 7 дней</span>
+            <h2>Активность по дням</h2>
+            <div id="weeklyChart" class="weekly-chart"></div>
+          </article>
+        </div>
+
+        <article class="card achievements-card">
+          <span class="kicker">Небольшие вехи</span>
+          <h2>Достижения</h2>
+          <div id="achievements" class="achievements"></div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <aside class="settings-panel" id="settingsPanel" aria-hidden="true">
+    <div class="settings-header">
+      <div>
+        <span class="kicker">Данные</span>
+        <h2>Настройки</h2>
+      </div>
+      <button class="icon-button" id="closeSettingsButton" aria-label="Закрыть">×</button>
+    </div>
+    <button class="settings-action" id="exportButton">Экспортировать резервную копию</button>
+    <button class="settings-action hidden" id="installButton">Установить на устройство</button>
+    <button class="settings-action" id="importButton">Импортировать резервную копию</button>
+    <button class="settings-action" id="resetTodayButton">Сбросить активность за сегодня</button>
+    <button class="settings-action danger-text" id="resetButton">Сбросить все данные</button>
+    <p class="settings-note">Данные хранятся только в этом браузере. Перед очисткой истории лучше сделать экспорт.</p>
+  </aside>
+  <div class="overlay" id="overlay"></div>
+
+  <dialog id="itemDialog">
+    <form id="itemForm">
+      <div class="dialog-header">
+        <h2 id="dialogTitle">Добавить</h2>
+        <button type="button" class="icon-button" id="closeDialogButton">×</button>
+      </div>
+      <label id="dialogSelectLabel" class="hidden">Раздел
+        <select id="dialogSectionSelect"></select>
+      </label>
+      <label>Название
+        <input id="dialogInput" required maxlength="140" autocomplete="off">
+      </label>
+      <div class="dialog-actions">
+        <button type="button" class="secondary-button" id="cancelDialogButton">Отмена</button>
+        <button class="primary-button" id="dialogSubmitButton">Добавить</button>
+      </div>
+    </form>
+  </dialog>
+
+  <input type="file" id="importInput" accept=".json,application/json" hidden>
+  <script src="js/app.js"></script>
+  <script>
+    if ("serviceWorker" in navigator && location.protocol !== "file:") {
+      navigator.serviceWorker.register("service-worker.js").catch(console.warn);
+    }
+  </script>
+</body>
+</html>
