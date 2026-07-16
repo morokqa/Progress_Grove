@@ -438,3 +438,120 @@ dialog::backdrop{background:rgba(27,37,31,.4);backdrop-filter:blur(4px)}dialog f
     display: none !important;
   }
 }
+
+
+/* Progress Grove 3.2 — меню действий у темы */
+.topic-leading {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.topic-menu-wrap {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.topic-menu-button {
+  width: 30px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1;
+  transition: background .16s ease, color .16s ease;
+}
+
+.topic-menu-button:hover,
+.topic-menu-button[aria-expanded="true"] {
+  background: var(--surface-2);
+  color: var(--green);
+}
+
+.topic-menu {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  z-index: 35;
+  min-width: 154px;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: var(--surface);
+  box-shadow: 0 14px 36px rgba(34,58,47,.18);
+}
+
+.topic-menu[hidden] {
+  display: none;
+}
+
+.topic-menu-item {
+  width: 100%;
+  padding: 10px 11px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+  font-weight: 720;
+}
+
+.topic-menu-item:hover {
+  background: var(--surface-2);
+}
+
+.topic-menu-item.is-danger {
+  color: var(--danger);
+}
+
+.topic-title {
+  min-width: 0;
+}
+
+.topic-label-wrap {
+  min-width: 0;
+}
+
+@media (max-width: 640px) {
+  .topic-table td:first-child {
+    padding-right: 0;
+    margin-bottom: 7px;
+  }
+
+  .topic-title {
+    align-items: center;
+  }
+
+  .topic-leading {
+    gap: 3px;
+    align-items: flex-start;
+  }
+
+  .topic-menu-button {
+    width: 27px;
+    height: 30px;
+    font-size: 20px;
+  }
+
+  .topic-label-wrap {
+    gap: 4px !important;
+    align-items: flex-start;
+  }
+
+  .topic-menu {
+    top: 31px;
+    left: 0;
+  }
+
+  .topic-table td:nth-child(2),
+  .topic-table td:nth-child(3) {
+    min-height: 38px;
+  }
+}
