@@ -1,4 +1,4 @@
-const CACHE_NAME = "progress-grove-v3";
+const CACHE_NAME = "progress-grove-v5";
 const ASSETS = [
   "./",
   "./index.html",

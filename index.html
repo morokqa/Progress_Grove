@@ -37,6 +37,18 @@
 
     <main>
       <section class="view is-active" id="dashboardView">
+        <article class="card job-search-card" id="jobSearchCard">
+          <div>
+            <span class="kicker">Карьерная цель</span>
+            <h2>До начала поиска работы</h2>
+            <p class="muted" id="jobSearchDateText">Укажи дату в меню •••</p>
+          </div>
+          <div class="job-search-countdown">
+            <strong id="jobSearchDays">—</strong>
+            <span id="jobSearchDaysLabel">дней</span>
+          </div>
+        </article>
+
         <div class="hero-grid">
           <article class="card progress-card">
             <div class="card-topline">
@@ -213,6 +225,7 @@
     <button class="settings-action" id="exportButton">Экспортировать резервную копию</button>
     <button class="settings-action hidden" id="installButton">Установить на устройство</button>
     <button class="settings-action" id="importButton">Импортировать резервную копию</button>
+    <button class="settings-action" id="jobSearchDateButton">Дата начала поиска работы</button>
     <button class="settings-action" id="resetTodayButton">Сбросить активность за сегодня</button>
     <button class="settings-action danger-text" id="resetButton">Сбросить все данные</button>
     <p class="settings-note">Данные хранятся только в этом браузере. Перед очисткой истории лучше сделать экспорт.</p>
@@ -234,6 +247,22 @@
       <div class="dialog-actions">
         <button type="button" class="secondary-button" id="cancelDialogButton">Отмена</button>
         <button class="primary-button" id="dialogSubmitButton">Добавить</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="jobSearchDateDialog">
+    <form id="jobSearchDateForm">
+      <div class="dialog-header">
+        <h2>Дата начала поиска работы</h2>
+        <button type="button" class="icon-button" id="closeJobSearchDateDialog" aria-label="Закрыть">×</button>
+      </div>
+      <label>Дата
+        <input type="date" id="jobSearchDateInput" required>
+      </label>
+      <div class="dialog-actions">
+        <button type="button" class="secondary-button" id="cancelJobSearchDateButton">Отмена</button>
+        <button class="primary-button">Сохранить</button>
       </div>
     </form>
   </dialog>

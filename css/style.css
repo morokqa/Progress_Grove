@@ -502,3 +502,59 @@ dialog::backdrop{background:rgba(27,37,31,.4);backdrop-filter:blur(4px)}dialog f
   min-width: 0;
 }
 
+
+/* Progress Grove 5.0 */
+.job-search-card{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:18px;background:linear-gradient(135deg,var(--surface),var(--surface-2))}
+.job-search-card h2{margin:.35rem 0 .45rem}
+.job-search-countdown{display:flex;align-items:baseline;gap:8px;white-space:nowrap;color:var(--green)}
+.job-search-countdown strong{font-size:clamp(2.4rem,6vw,4.5rem);line-height:1}
+.job-search-countdown span{font-weight:780}
+.section-order-actions{display:flex;gap:6px;align-items:center}
+.section-actions{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+.section-order-button{width:34px;height:34px;border:0;border-radius:10px;background:var(--surface-2);color:var(--green);font-weight:900;cursor:pointer}
+.section-order-button:disabled{opacity:.3;cursor:default}
+.section-add-topic{
+margin:0;
+}
+@media(max-width:560px){
+  .job-search-card{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .job-search-countdown strong{
+    font-size:3.2rem;
+  }
+
+  .section-title-row{
+    grid-template-columns:1fr;
+    gap:14px;
+  }
+
+  .section-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr auto;
+    align-items:center;
+    gap:12px;
+    width:100%;
+  }
+
+  .section-add-topic{
+    width:100%;
+    margin:0;
+    text-align:left;
+  }
+
+  .section-actions > .text-button:nth-child(2){
+    text-align:left;
+  }
+
+  .section-order-actions{
+    justify-self:end;
+  }
+}
+@media(min-width:561px){.section-title-row{grid-template-columns:minmax(0,1fr) auto auto auto auto}}
